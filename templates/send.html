@@ -1,0 +1,37 @@
+{% extends 'base.html'%}
+
+{%block head%}
+<title>Send Mail Page</title>
+{%endblock%}
+
+{%block body%}
+<div class='content'>
+    <h1 style='text-align: center'>Contacts</h1>
+    <div class='content'>
+        <form action='/sendMail/{{contact.id}}' method='POST' enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" name='subject'>
+            </div>
+            <div class="form-group">
+                <label for="recipient">Recipients</label>
+                {% for email in emails%}
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="form-check-input" id="recipient" name='recipient'
+                        value='{{email.email}}' multiple>{{email.name,email.email}}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label for="body">Body</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" name='body'>
+            </div>
+            <div class="form-group">
+                <label for="upload_file">Upload Files</label>
+                <input type="file" class="form-control-file" id="exampleFormControlFile1" name='upload_file' multiple>
+              </div>
+            <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+    </div>
+</div>
+{%endblock%}
