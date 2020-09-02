@@ -1,3 +1,4 @@
+# coding = UTF-8
 import os
 import smtplib
 from flask import Flask, render_template, request, url_for, redirect
@@ -8,8 +9,6 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
-from flask_wtf import FlaskForm
-from wtforms import SelectField
 
 
 app = Flask(__name__)
@@ -30,8 +29,6 @@ class TODO(db.Model):
 
     def  __repr__(self):
         return '<Contact %r>' % self.id
-class Form(FlaskForm):
-    email = SelectField('email',choices=[])
 
 @app.route('/',methods=['POST','GET'])
 def index():
