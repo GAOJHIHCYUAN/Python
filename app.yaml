@@ -1,5 +1,5 @@
-service: simple-dash-app-engine-app
-runtime: python37
+service: default
+runtime: python38
 
 basic_scaling:
     max_instances: 2
@@ -10,4 +10,4 @@ resources:
     memory_gb: 1
     disk_size_gb: 10
 
-entrypoint: gunicorn -b 0.0.0.0:8080 main:server
+entrypoint: gunicorn -b main:main
