@@ -100,7 +100,7 @@ def sendMail(id):
     msg=MIMEMultipart()
     
     if request.method == 'POST':
-        sender="@example.com"
+        sender = '@example.com'
         msg['From'] = sender
         recipients_options = request.values.getlist('recipient')
         recipients = recipients_options
@@ -137,4 +137,4 @@ def sendMail(id):
         return render_template('send.html',contact=contact,emails=emails)
 
 if __name__ == '__main__' :
-    app.run(host='0.0.0.0', port=8080, debug=True)
+    app.run(port=8080, debug=True)
