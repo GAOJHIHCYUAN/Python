@@ -1,0 +1,4 @@
+applications:
+- name: main
+  random-route: true
+  memory: 128M
