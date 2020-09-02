@@ -1,4 +1,4 @@
-# coding = UTF-8
+# -*- coding: utf-8 -*-
 import os
 import smtplib
 from flask import Flask, render_template, request, url_for, redirect
@@ -19,8 +19,6 @@ db = SQLAlchemy(app)
 
 
 class TODO(db.Model):
-    #__table__name = 'user_table' ，若不寫則看class name
-    #設定primary key
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(120),nullable=False)
@@ -137,12 +135,6 @@ def sendMail(id):
     #     return redirect('/')
     else:
         return render_template('send.html',contact=contact,emails=emails)
-
-# 裝飾HTML
-# 不上傳檔案也可寄送郵件
-# 選擇多位收信人，並寄出郵件。
-# 上傳至Heroku
-
 
 if __name__ == '__main__' :
     app.run(host='127.0.0.1', port=8080, debug=True)
