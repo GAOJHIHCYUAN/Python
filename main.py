@@ -100,7 +100,7 @@ def sendMail(id):
     msg=MIMEMultipart()
     
     if request.method == 'POST':
-        sender = '@example.com'
+        sender = 'kaochinchang@gmail.com'
         msg['From'] = sender
         recipients_options = request.values.getlist('recipient')
         recipients = recipients_options
@@ -121,7 +121,7 @@ def sendMail(id):
                 attachment.close()
         s = smtplib.SMTP('smtp.gmail.com',587)
         s.starttls()
-        s.login("@example.com","password")
+        s.login("kaochinchang@gmail.com","Aaron6300207")
         text = msg.as_string()
         s.sendmail(sender,recipients,text)
         s.quit()
