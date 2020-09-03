@@ -120,6 +120,7 @@ def sendMail(id):
                 msg.attach(payload)
                 attachment.close()
         s = smtplib.SMTP('smtp.gmail.com',587)
+        s.ehlo()
         s.starttls()
         s.login("kaochinchang@gmail.com","Aaron6300207")
         text = msg.as_string()
