@@ -108,7 +108,7 @@ def sendMail(id):
         msg['To'] =  ';'.join(recipients)
         msg['Subject'] = request.form['subject']
         body = request.form['body']
-        msg.attach(MIMEText(body,'plain'))
+        msg.attach(MIMEText(body, _subtype='html', _charset='UTF-8'))
         files = request.files.getlist('upload_file')
         if ('application/octet-stream') not in str(files)  :
             for file in files:
@@ -125,7 +125,7 @@ def sendMail(id):
         s.ehlo()
         s.starttls()
         s.login("kaochinchang@gmail.com","Aaron6300207")
-        text = msg.as_string()
+        text = msg.as_string().encode('utf-8')
         s.sendmail(sender,recipients,text)
         s.quit()
         return redirect('/')
@@ -140,4 +140,4 @@ def sendMail(id):
         return render_template('send.html',contact=contact,emails=emails)
 
 if __name__ == '__main__' :
-    app.run(host='0.0.0.0',port=8080,debug=True)
+    app.run(debug=True)
