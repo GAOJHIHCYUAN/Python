@@ -9,6 +9,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
+import base64
 
 
 app = Flask(__name__)
@@ -100,7 +101,7 @@ def sendMail(id):
     msg=MIMEMultipart()
     
     if request.method == 'POST':
-        sender = '@example.com'
+        sender = 'kaochinchang@gmail.com'
         msg['From'] = sender
         recipients_options = request.values.getlist('recipient')
         recipients = recipients_options
@@ -113,16 +114,17 @@ def sendMail(id):
             for file in files:
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'],file.filename))
                 attachment = open("static/upload/"+file.filename,'rb')
+                file_name = '=?utf-8?b?' + base64.b64encode(file.filename.encode()).decode() + '?='
                 payload = MIMEBase('application', 'octet-stream')
+                payload.add_header('Content-Disposition','attachment;filename= %s' % file_name)
                 payload.set_payload((attachment).read())
                 encoders.encode_base64(payload)
-                payload.add_header('Content-Disposition','attachment;filename= %s' % file.filename)
                 msg.attach(payload)
                 attachment.close()
         s = smtplib.SMTP('smtp.gmail.com',587)
         s.ehlo()
         s.starttls()
-        s.login("@example.com","password")
+        s.login("kaochinchang@gmail.com","Aaron6300207")
         text = msg.as_string()
         s.sendmail(sender,recipients,text)
         s.quit()
@@ -138,4 +140,4 @@ def sendMail(id):
         return render_template('send.html',contact=contact,emails=emails)
 
 if __name__ == '__main__' :
-    app.run(debug=True)
+    app.run(host='0.0.0.0',port=8080,debug=True)
